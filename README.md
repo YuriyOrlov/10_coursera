@@ -20,8 +20,8 @@ File "coursera_courses.xlsx" created.
 
 ```
 
-Program uses multiproccessing, but time of coursera courses dump creation depends on your internet connection.
-In my case it took about ~5 minutes to parse and create the XLSX file.
+Program uses multiproccessing, but time of dump creation depends on your internet connection.
+In my case it took about ~14 minutes to parse and create the full courses XLSX file (~20 Mbit).
 
 
 # Project Goals
