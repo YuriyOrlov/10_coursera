@@ -32,7 +32,7 @@ def parallel_scraping():
     num_of_parallel_processes = cpu_count() * 2
     pool = Pool(num_of_parallel_processes)
     courses_list = get_courses_list()
-    courses_info_list = pool.map(get_course_info, courses_list[:10])
+    courses_info_list = pool.map(get_course_info, courses_list)
     return courses_info_list
 
 
