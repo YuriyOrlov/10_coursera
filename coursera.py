@@ -16,9 +16,10 @@ def get_course_info(course_slug):
     data_from_request = requests.get(course_slug)
     parsed_data = BeautifulSoup(data_from_request.content, 'lxml')
     course_name = parsed_data.find('h1', class_=re.compile('display-3-text')).text
-    course_language = parsed_data.find('div', class_=re.compile('rc-Language')).content
+    course_language = parsed_data.find('div', class_=re.compile('rc-Language')).text
     course_beginning_date = parsed_data.find('div', class_=re.compile('startdate rc-StartDateString caption-text')).text
-    course_length = len(parsed_data.find('div', class_=re.compile('rc-WeekView')))
+    course_length = parsed_data.find('div', class_=re.compile('rc-WeekView'))
+    course_length = len(course_length) if course_length else None
     course_average_rating = parsed_data.find('div', class_=re.compile('ratings-text bt3-hidden-xs'))
     if course_average_rating:
         course_average_rating = re.findall(r'[0-9.]{3}', course_average_rating.text)[0]
@@ -31,7 +32,7 @@ def parallel_scraping():
     num_of_parallel_processes = cpu_count() * 2
     pool = Pool(num_of_parallel_processes)
     courses_list = get_courses_list()
-    courses_info_list = pool.map(get_course_info, courses_list)
+    courses_info_list = pool.map(get_course_info, courses_list[:10])
     return courses_info_list
 
 
