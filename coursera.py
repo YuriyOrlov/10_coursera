@@ -28,7 +28,7 @@ def get_course_info(course_slug):
     return course_name, course_language, course_beginning_date, course_length, course_average_rating
 
 
-def parallel_scraping():
+def do_url_multiparsing():
     num_of_parallel_processes = cpu_count() * 2
     pool = Pool(num_of_parallel_processes)
     courses_list = get_courses_list()
@@ -54,10 +54,10 @@ if __name__ == '__main__':
     args = args_parser.parse_args()
     filepath_for_xlsx = args.saving_dist
     if not filepath_for_xlsx:
-        courses_info_list = parallel_scraping()
+        courses_info_list = do_url_multiparsing()
         output_courses_info_to_xlsx(courses_info_list)
         print('File \"coursera_courses.xlsx\" created.')
     else:
-        courses_info_list = parallel_scraping()
+        courses_info_list = do_url_multiparsing()
         output_courses_info_to_xlsx(courses_info_list, filepath_for_xlsx[0].name)
         print('File \"{}\" created.'.format(filepath_for_xlsx[0].name))
